@@ -25,6 +25,52 @@ namespace FluentImageResizing
 
                 if (image.Width > image.Height)
                 {
+                    if (viewportWidth > viewportHeight)
+                    {
+                        fillWidth = viewportWidth;
+                        fillHeight = (int)Math.Round(viewportWidth / aspectRatio);
+                    }
+                    else
+                    {
+                        fillWidth = (int)Math.Round(viewportHeight * aspectRatio);
+                        fillHeight = viewportHeight;
+                    }
+                }
+                else
+                {
+                    if (viewportWidth > viewportHeight)
+                    {
+                        fillWidth = viewportWidth;
+                        fillHeight = (int)Math.Round(viewportWidth / aspectRatio);
+                    }
+                    else
+                    {
+                        fillWidth = (int)Math.Round(viewportHeight * aspectRatio);
+                        fillHeight = viewportHeight;
+                    }
+                }
+
+                image = ResizeImageToViewport(image, fillWidth, fillHeight);
+
+                var viewportImage = new ImageCropper(image, viewportWidth, viewportHeight, CropAnchor.Center).Crop();
+                _imageResult.SetImage(viewportImage);
+            }
+
+            return _imageResult;
+        }
+
+        public ImageResult ToFit(int viewportWidth, int viewportHeight)
+        {
+            using (var original = _imageResult.CreateImage())
+            {
+                var image = original;
+                double aspectRatio = (double)image.Width / image.Height;
+
+                int fillWidth;
+                int fillHeight;
+
+                if (image.Width > image.Height)
+                {
                     fillHeight = viewportHeight;
                     fillWidth = (int)Math.Round(viewportHeight * aspectRatio);
                 }
@@ -35,9 +81,7 @@ namespace FluentImageResizing
                 }
 
                 image = ResizeImageToViewport(image, fillWidth, fillHeight);
-
-                var viewportImage = new ImageCropper(image, viewportWidth, viewportHeight, CropAnchor.Center).Crop();
-                _imageResult.SetImage(viewportImage);
+                _imageResult.SetImage(image);
             }
 
             return _imageResult;
