@@ -6,9 +6,11 @@ namespace FluentImageResizing
 {
     public class ImageResult
     {
-        public CropResult Crop { get; private set; }
         public byte[] Bytes { get; private set; }
         public ImageFormat Format { get; private set; }
+
+        public CropResult Crop { get; private set; }
+        public ResizeResult Resize { get; private set; }
 
         public ImageResult(byte[] bytes, ImageFormat format)
         {
@@ -16,6 +18,7 @@ namespace FluentImageResizing
             Format = format;
 
             Crop = new CropResult(this);
+            Resize = new ResizeResult(this);
         }
 
         public Image CreateImage()

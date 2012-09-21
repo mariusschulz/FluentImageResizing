@@ -9,6 +9,7 @@ namespace FluentImageResizing
         public CropResult(ImageResult imageResult)
         {
             ImageResult = imageResult;
+
             FromCenter = new CropPositionResult(this, CropAnchor.Center);
         }
     }

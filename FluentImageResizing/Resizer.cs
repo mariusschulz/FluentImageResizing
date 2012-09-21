@@ -15,9 +15,9 @@ namespace FluentImageResizing
             {
                 var temporaryBitmap = new Bitmap(image.Width, image.Height);
 
-                using (Graphics grPhoto = Graphics.FromImage(temporaryBitmap))
+                using (var graphics = Graphics.FromImage(temporaryBitmap))
                 {
-                    grPhoto.DrawImage(temporaryBitmap, new Rectangle(0, 0, temporaryBitmap.Width, temporaryBitmap.Height),
+                    graphics.DrawImage(image, new Rectangle(0, 0, temporaryBitmap.Width, temporaryBitmap.Height),
                         0, 0, temporaryBitmap.Width, temporaryBitmap.Height, GraphicsUnit.Pixel);
                 }
                
