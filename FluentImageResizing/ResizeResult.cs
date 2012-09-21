@@ -41,11 +41,11 @@ namespace FluentImageResizing
                     if (viewportWidth > viewportHeight)
                     {
                         fillWidth = viewportWidth;
-                        fillHeight = (int)Math.Round(viewportWidth / aspectRatio);
+                        fillHeight = (int)Math.Round(viewportWidth * aspectRatio);
                     }
                     else
                     {
-                        fillWidth = (int)Math.Round(viewportHeight * aspectRatio);
+                        fillWidth = (int)Math.Round(viewportHeight / aspectRatio);
                         fillHeight = viewportHeight;
                     }
                 }
@@ -66,21 +66,27 @@ namespace FluentImageResizing
                 var image = original;
                 double aspectRatio = (double)image.Width / image.Height;
 
-                int fillWidth;
-                int fillHeight;
+                int smallerWidth = Math.Min(image.Width, viewportWidth);
+                int smallerHeight = Math.Min(image.Height, viewportHeight);
 
-                if (image.Width > image.Height)
+                double widthRatio = (double)viewportWidth / image.Width;
+                double heightRatio = (double)viewportHeight / image.Height;
+
+                int targetWidth;
+                int targetHeight;
+
+                if (widthRatio > heightRatio)
                 {
-                    fillHeight = viewportHeight;
-                    fillWidth = (int)Math.Round(viewportHeight * aspectRatio);
+                    targetWidth = (int)Math.Round(smallerHeight * aspectRatio);
+                    targetHeight = smallerHeight;
                 }
                 else
                 {
-                    fillWidth = viewportHeight;
-                    fillHeight = (int)Math.Round(viewportHeight / aspectRatio);
+                    targetWidth = smallerWidth;
+                    targetHeight = (int)Math.Round(smallerWidth / aspectRatio);
                 }
 
-                image = ResizeImageToViewport(image, fillWidth, fillHeight);
+                image = ResizeImageToViewport(image, targetWidth, targetHeight);
                 _imageResult.SetImage(image);
             }
 

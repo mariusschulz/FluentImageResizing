@@ -59,4 +59,50 @@ namespace FluentImageResizing.Specs
     }
 
     #endregion
+
+    #region When an image is resized to fit into a viewport
+
+    [TestFixture]
+    public class When_an_image_is_resized_to_fit_into_a_viewport : TestFixtureWorkingWithImages
+    {
+        [TestCase(300, 200, 300, 200)]
+        [TestCase(600, 400, 300, 200)]
+        [TestCase(400, 300, 300, 200)]
+        [TestCase(150, 100, 150, 100)]
+        [TestCase(60, 200, 60, 40)]
+        [TestCase(300, 50, 75, 50)]
+        [TestCase(150, 50, 75, 50)]
+        public void The_resulting_dimensions_are_calculated_correctly_for_a_landscape_image(int viewportWidth, int viewportHeight,
+            int expectedImageWidth, int expectedImageHeight)
+        {
+            var resizedImage = Resizer
+                .CreateImageFrom(ImageBytes300x200, ImageFormat.Png)
+                .Resize.ToFit(viewportWidth, viewportHeight)
+                .CreateImage();
+
+            resizedImage.Width.Should().Equal(expectedImageWidth);
+            resizedImage.Height.Should().Equal(expectedImageHeight);
+        }
+
+        [TestCase(200, 300, 200, 300)]
+        [TestCase(400, 600, 200, 300)]
+        [TestCase(300, 400, 200, 300)]
+        [TestCase(100, 150, 100, 150)]
+        [TestCase(200, 60, 40, 60)]
+        [TestCase(50, 300, 50, 75)]
+        [TestCase(50, 150, 50, 75)]
+        public void The_resulting_dimensions_are_calculated_correctly_for_a_portrait_image(int viewportWidth, int viewportHeight,
+            int expectedImageWidth, int expectedImageHeight)
+        {
+            var resizedImage = Resizer
+                .CreateImageFrom(ImageBytes200x300, ImageFormat.Png)
+                .Resize.ToFit(viewportWidth, viewportHeight)
+                .CreateImage();
+
+            resizedImage.Width.Should().Equal(expectedImageWidth);
+            resizedImage.Height.Should().Equal(expectedImageHeight);
+        }
+    }
+
+    #endregion
 }
