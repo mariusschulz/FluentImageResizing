@@ -14,6 +14,7 @@ namespace FluentImageResizing
         {
             Bytes = bytes;
             Format = format;
+
             Crop = new CropResult(this);
         }
 
@@ -32,6 +33,12 @@ namespace FluentImageResizing
                 image.Save(memoryStream, Format);
                 Bytes = memoryStream.ToArray();
             }
+        }
+
+        public void SetImage(Image image, ImageFormat format)
+        {
+            Format = format;
+            SetImage(image);
         }
     }
 }
