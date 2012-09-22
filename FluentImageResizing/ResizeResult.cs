@@ -18,36 +18,23 @@ namespace FluentImageResizing
             using (var original = _imageResult.CreateImage())
             {
                 var image = original;
+
                 double aspectRatio = (double)image.Width / image.Height;
+                double widthRatio = (double)viewportWidth / image.Width;
+                double heightRatio = (double)viewportHeight / image.Height;
 
                 int fillWidth;
                 int fillHeight;
 
-                if (image.Width > image.Height)
+                if (widthRatio > heightRatio)
                 {
-                    if (viewportWidth > viewportHeight)
-                    {
-                        fillWidth = viewportWidth;
-                        fillHeight = (int)Math.Round(viewportWidth / aspectRatio);
-                    }
-                    else
-                    {
-                        fillWidth = (int)Math.Round(viewportHeight * aspectRatio);
-                        fillHeight = viewportHeight;
-                    }
+                    fillWidth = viewportWidth;
+                    fillHeight = (int)Math.Round(viewportWidth / aspectRatio); 
                 }
                 else
                 {
-                    if (viewportWidth > viewportHeight)
-                    {
-                        fillWidth = viewportWidth;
-                        fillHeight = (int)Math.Round(viewportWidth * aspectRatio);
-                    }
-                    else
-                    {
-                        fillWidth = (int)Math.Round(viewportHeight / aspectRatio);
-                        fillHeight = viewportHeight;
-                    }
+                    fillWidth = (int)Math.Round(viewportHeight * aspectRatio);
+                    fillHeight = viewportHeight;
                 }
 
                 image = ResizeImageToViewport(image, fillWidth, fillHeight);
@@ -64,8 +51,8 @@ namespace FluentImageResizing
             using (var original = _imageResult.CreateImage())
             {
                 var image = original;
-                double aspectRatio = (double)image.Width / image.Height;
 
+                double aspectRatio = (double)image.Width / image.Height;
                 int smallerWidth = Math.Min(image.Width, viewportWidth);
                 int smallerHeight = Math.Min(image.Height, viewportHeight);
 
