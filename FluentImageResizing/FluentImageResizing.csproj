@@ -40,15 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Center.cs" />
-    <Compile Include="CropAnchor.cs" />
-    <Compile Include="Fill.cs" />
-    <Compile Include="FillStrategy.cs" />
-    <Compile Include="Fit.cs" />
-    <Compile Include="ImageCropper.cs" />
+    <Compile Include="Cropping\Center.cs" />
+    <Compile Include="Cropping\CropAnchor.cs" />
+    <Compile Include="Resizing\Fill.cs" />
+    <Compile Include="Resizing\FillStrategy.cs" />
+    <Compile Include="Resizing\Fit.cs" />
+    <Compile Include="Cropping\ImageCropper.cs" />
     <Compile Include="Resizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ImageResult.cs" />
+    <Compile Include="Fluent Syntax\ImageResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
