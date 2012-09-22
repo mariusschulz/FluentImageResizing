@@ -14,7 +14,7 @@ namespace FluentImageResizing.Specs
         {
             Image image = Resizer
                  .CreateImageFrom(ImageBytes300x200, ImageFormat.Png)
-                 .Crop.FromCenter.ToAtMost(75, 60)
+                 .CropFrom<Center>(75, 60)
                  .CreateImage();
 
             image.Width.Should().Equal(75);
@@ -26,7 +26,7 @@ namespace FluentImageResizing.Specs
         {
             Image image = Resizer
                 .CreateImageFrom(IconBytes16x16, ImageFormat.Png)
-                .Crop.FromCenter.ToAtMost(75, 60)
+                .CropFrom<Center>(75, 60)
                 .CreateImage();
 
             image.Width.Should().Equal(16);

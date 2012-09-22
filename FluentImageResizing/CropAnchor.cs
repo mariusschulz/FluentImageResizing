@@ -1,7 +1,9 @@
+using System.Drawing;
+
 namespace FluentImageResizing
 {
-    public enum CropAnchor
+    public abstract class CropAnchor
     {
-        Center
+        public abstract Rectangle GetSourceClip(int imageWidth, int imageHeight, int cropWidth, int cropHeight);
     }
 }

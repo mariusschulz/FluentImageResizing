@@ -31,7 +31,7 @@ namespace FluentImageResizing
 
                 image = ResizeImageToViewport(image, fillWidth, fillHeight);
 
-                return new ImageCropper(image, viewportWidth, viewportHeight, CropAnchor.Center).Crop();
+                return new ImageCropper(image, viewportWidth, viewportHeight, new Center()).Crop();
             }
         }
     }

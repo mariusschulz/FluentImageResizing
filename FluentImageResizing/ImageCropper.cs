@@ -45,23 +45,11 @@ namespace FluentImageResizing
         {
             using (var graphics = Graphics.FromImage(_croppedImage))
             {
-                graphics.DrawImage(_image, GetDestinationClip(), GetSourceClip(), GraphicsUnit.Pixel);
+                var sourceClip = _anchor.GetSourceClip(_image.Width, _image.Height, _cropWidth, _cropHeight);
+                var destinationClip = new Rectangle(0, 0, _cropWidth, _cropHeight);
+
+                graphics.DrawImage(_image, destinationClip, sourceClip, GraphicsUnit.Pixel);
             }
-        }
-
-        private Rectangle GetDestinationClip()
-        {
-            return new Rectangle(0, 0, _cropWidth, _cropHeight);
-        }
-
-        private Rectangle GetSourceClip()
-        {
-            // Right now, we only support CropAnchor.Center, so there's no need
-            // to make this calculation dependent upon the anchor value.
-            int left = (_image.Width - _cropWidth) / 2;
-            int top = (_image.Height - _cropHeight) / 2;
-
-            return new Rectangle(left, top, _cropWidth, _cropHeight);
         }
     }
 }

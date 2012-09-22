@@ -40,9 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Center.cs" />
     <Compile Include="CropAnchor.cs" />
-    <Compile Include="CropPositionResult.cs" />
-    <Compile Include="CropResult.cs" />
     <Compile Include="Fill.cs" />
     <Compile Include="FillStrategy.cs" />
     <Compile Include="Fit.cs" />

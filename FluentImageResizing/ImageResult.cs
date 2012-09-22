@@ -9,14 +9,10 @@ namespace FluentImageResizing
         public byte[] Bytes { get; private set; }
         public ImageFormat Format { get; private set; }
 
-        public CropResult Crop { get; private set; }
-
         public ImageResult(byte[] bytes, ImageFormat format)
         {
             Bytes = bytes;
             Format = format;
-
-            Crop = new CropResult(this);
         }
 
         public Image CreateImage()
@@ -25,6 +21,16 @@ namespace FluentImageResizing
             {
                 return Image.FromStream(memoryStream);
             }
+        }
+
+        public ImageResult CropFrom<TCropAnchor>(int maxWidth, int maxHeight) where TCropAnchor: CropAnchor, new()
+        {
+            var cropAnchor = new TCropAnchor();
+            var croppedImage = new ImageCropper(CreateImage(), maxWidth, maxHeight, cropAnchor).Crop();
+            
+            SetImage(croppedImage);
+
+            return this;
         }
 
         public ImageResult ResizeTo<TFillStrategy>(int viewportWidth, int viewportHeight) where TFillStrategy : FillStrategy, new()
