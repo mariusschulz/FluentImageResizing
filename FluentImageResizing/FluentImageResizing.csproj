@@ -43,11 +43,13 @@
     <Compile Include="CropAnchor.cs" />
     <Compile Include="CropPositionResult.cs" />
     <Compile Include="CropResult.cs" />
+    <Compile Include="Fill.cs" />
+    <Compile Include="FillStrategy.cs" />
+    <Compile Include="Fit.cs" />
     <Compile Include="ImageCropper.cs" />
     <Compile Include="Resizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ImageResult.cs" />
-    <Compile Include="ResizeResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

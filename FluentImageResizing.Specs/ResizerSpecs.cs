@@ -50,10 +50,10 @@ namespace FluentImageResizing.Specs
         [TestCase(10, 10)]
         public void The_resulting_image_dimensions_equal_the_specified_ones(int width, int height)
         {
-            var landscapeImage = Resizer.CreateImageFrom(ImageBytes300x200, ImageFormat.Png).Resize.ToFill(width, height).CreateImage();
+            var landscapeImage = Resizer.CreateImageFrom(ImageBytes300x200, ImageFormat.Png).ResizeTo<Fill>(width, height).CreateImage();
             landscapeImage.Size.Should().Equal(new Size { Width = width, Height = height });
 
-            var portraitImage = Resizer.CreateImageFrom(ImageBytes200x300, ImageFormat.Png).Resize.ToFill(width, height).CreateImage();
+            var portraitImage = Resizer.CreateImageFrom(ImageBytes200x300, ImageFormat.Png).ResizeTo<Fill>(width, height).CreateImage();
             portraitImage.Size.Should().Equal(new Size { Width = width, Height = height });
         }
     }
@@ -77,7 +77,7 @@ namespace FluentImageResizing.Specs
         {
             var resizedImage = Resizer
                 .CreateImageFrom(ImageBytes300x200, ImageFormat.Png)
-                .Resize.ToFit(viewportWidth, viewportHeight)
+                .ResizeTo<Fit>(viewportWidth, viewportHeight)
                 .CreateImage();
 
             resizedImage.Width.Should().Equal(expectedImageWidth);
@@ -96,7 +96,7 @@ namespace FluentImageResizing.Specs
         {
             var resizedImage = Resizer
                 .CreateImageFrom(ImageBytes200x300, ImageFormat.Png)
-                .Resize.ToFit(viewportWidth, viewportHeight)
+                .ResizeTo<Fit>(viewportWidth, viewportHeight)
                 .CreateImage();
 
             resizedImage.Width.Should().Equal(expectedImageWidth);

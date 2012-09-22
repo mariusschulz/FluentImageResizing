@@ -10,7 +10,6 @@ namespace FluentImageResizing
         public ImageFormat Format { get; private set; }
 
         public CropResult Crop { get; private set; }
-        public ResizeResult Resize { get; private set; }
 
         public ImageResult(byte[] bytes, ImageFormat format)
         {
@@ -18,7 +17,6 @@ namespace FluentImageResizing
             Format = format;
 
             Crop = new CropResult(this);
-            Resize = new ResizeResult(this);
         }
 
         public Image CreateImage()
@@ -27,6 +25,16 @@ namespace FluentImageResizing
             {
                 return Image.FromStream(memoryStream);
             }
+        }
+
+        public ImageResult ResizeTo<TFillStrategy>(int viewportWidth, int viewportHeight) where TFillStrategy : FillStrategy, new()
+        {
+            var strategy = new TFillStrategy();
+            var resizedImage = strategy.Resize(CreateImage(), viewportWidth, viewportHeight);
+            
+            SetImage(resizedImage);
+
+            return this;
         }
 
         public void SetImage(Image image)
