@@ -21,6 +21,8 @@ namespace FluentImageResizing
                             0, 0, temporaryBitmap.Width, temporaryBitmap.Height, GraphicsUnit.Pixel);
                     }
 
+                    ImagePropertyItems.Copy(image, temporaryBitmap);
+
                     using (var saveStream = new MemoryStream())
                     {
                         temporaryBitmap.Save(saveStream, format);

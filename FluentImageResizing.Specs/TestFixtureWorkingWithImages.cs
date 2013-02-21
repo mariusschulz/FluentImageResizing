@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using NUnit.Framework;
 
@@ -22,6 +23,21 @@ namespace FluentImageResizing.Specs
 
             string iconPath = Path.Combine(Environment.CurrentDirectory, "../../icon.png");
             IconBytes16x16 = File.ReadAllBytes(iconPath);
+        }
+
+        protected void MakeSureAllPropertyItemsArePresent(Image source, Image target)
+        {
+            foreach (var propertyItem in source.PropertyItems)
+            {
+                try
+                {
+                    target.GetPropertyItem(propertyItem.Id);
+                }
+                catch (ArgumentException)
+                {
+                    Assert.Fail("The property item with ID {0} was not present.", propertyItem.Id);
+                }
+            }
         }
     }
 }
