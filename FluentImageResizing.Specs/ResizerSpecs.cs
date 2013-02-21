@@ -41,21 +41,10 @@ namespace FluentImageResizing.Specs
             using (var memoryStream = new MemoryStream(ImageBytes300x200))
             {
                 var image = Image.FromStream(memoryStream);
-
                 var imageToResize = Resizer.CreateImageFrom(ImageBytes200x300, ImageFormat.Png);
                 var resizedImage = imageToResize.CropFrom<Center>(100, 200).CreateImage();
 
-                foreach (var propertyItem in image.PropertyItems)
-                {
-                    try
-                    {
-                        resizedImage.GetPropertyItem(propertyItem.Id);
-                    }
-                    catch (ArgumentException)
-                    {
-                        Assert.Fail("The property item with ID {0} was not present.", propertyItem.Id);
-                    }
-                }
+                MakeSureAllPropertyItemsArePresent(image, resizedImage);
             }
         }
     }
@@ -89,21 +78,10 @@ namespace FluentImageResizing.Specs
             using (var memoryStream = new MemoryStream(ImageBytes300x200))
             {
                 var image = Image.FromStream(memoryStream);
-
                 var imageToResize = Resizer.CreateImageFrom(ImageBytes200x300, ImageFormat.Png);
                 var resizedImage = imageToResize.ResizeTo<Fill>(100, 200).CreateImage();
 
-                foreach (var propertyItem in image.PropertyItems)
-                {
-                    try
-                    {
-                        resizedImage.GetPropertyItem(propertyItem.Id);
-                    }
-                    catch (ArgumentException)
-                    {
-                        Assert.Fail("The property item with ID {0} was not present.", propertyItem.Id);
-                    }
-                }
+                MakeSureAllPropertyItemsArePresent(image, resizedImage);
             }
         }
     }
@@ -159,21 +137,10 @@ namespace FluentImageResizing.Specs
             using (var memoryStream = new MemoryStream(ImageBytes300x200))
             {
                 var image = Image.FromStream(memoryStream);
-
                 var imageToResize = Resizer.CreateImageFrom(ImageBytes200x300, ImageFormat.Png);
                 var resizedImage = imageToResize.ResizeTo<Fit>(100, 200).CreateImage();
 
-                foreach (var propertyItem in image.PropertyItems)
-                {
-                    try
-                    {
-                        resizedImage.GetPropertyItem(propertyItem.Id);
-                    }
-                    catch (ArgumentException)
-                    {
-                        Assert.Fail("The property item with ID {0} was not present.", propertyItem.Id);
-                    }
-                }
+                MakeSureAllPropertyItemsArePresent(image, resizedImage);
             }
         }
     }
