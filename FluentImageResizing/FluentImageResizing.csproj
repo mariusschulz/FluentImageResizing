@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="Cropping\Center.cs" />
     <Compile Include="Cropping\CropAnchor.cs" />
+    <Compile Include="ImagePropertyItems.cs" />
+    <Compile Include="ImageExtensions.cs" />
     <Compile Include="Resizing\Fill.cs" />
     <Compile Include="Resizing\FillStrategy.cs" />
     <Compile Include="Resizing\Fit.cs" />

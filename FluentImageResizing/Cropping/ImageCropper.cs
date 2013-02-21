@@ -27,6 +27,8 @@ namespace FluentImageResizing
             CreateEmptyBitmap();
             DrawCroppedImageOnBitmap();
 
+            ImagePropertyItems.Copy(_image, _croppedImage);
+
             return _croppedImage;
         }
 

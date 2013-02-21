@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using NUnit.Framework;
 using Should.Fluent;
 
@@ -32,6 +34,30 @@ namespace FluentImageResizing.Specs
             image.Width.Should().Equal(16);
             image.Height.Should().Equal(16);
         }
+
+        [Test]
+        public void The_image_property_items_are_retained()
+        {
+            using (var memoryStream = new MemoryStream(ImageBytes300x200))
+            {
+                var image = Image.FromStream(memoryStream);
+
+                var imageToResize = Resizer.CreateImageFrom(ImageBytes200x300, ImageFormat.Png);
+                var resizedImage = imageToResize.CropFrom<Center>(100, 200).CreateImage();
+
+                foreach (var propertyItem in image.PropertyItems)
+                {
+                    try
+                    {
+                        resizedImage.GetPropertyItem(propertyItem.Id);
+                    }
+                    catch (ArgumentException)
+                    {
+                        Assert.Fail("The property item with ID {0} was not present.", propertyItem.Id);
+                    }
+                }
+            }
+        }
     }
 
     #endregion
@@ -55,6 +81,30 @@ namespace FluentImageResizing.Specs
 
             var portraitImage = Resizer.CreateImageFrom(ImageBytes200x300, ImageFormat.Png).ResizeTo<Fill>(width, height).CreateImage();
             portraitImage.Size.Should().Equal(new Size { Width = width, Height = height });
+        }
+
+        [Test]
+        public void The_image_property_items_are_retained()
+        {
+            using (var memoryStream = new MemoryStream(ImageBytes300x200))
+            {
+                var image = Image.FromStream(memoryStream);
+
+                var imageToResize = Resizer.CreateImageFrom(ImageBytes200x300, ImageFormat.Png);
+                var resizedImage = imageToResize.ResizeTo<Fill>(100, 200).CreateImage();
+
+                foreach (var propertyItem in image.PropertyItems)
+                {
+                    try
+                    {
+                        resizedImage.GetPropertyItem(propertyItem.Id);
+                    }
+                    catch (ArgumentException)
+                    {
+                        Assert.Fail("The property item with ID {0} was not present.", propertyItem.Id);
+                    }
+                }
+            }
         }
     }
 
@@ -101,6 +151,30 @@ namespace FluentImageResizing.Specs
 
             resizedImage.Width.Should().Equal(expectedImageWidth);
             resizedImage.Height.Should().Equal(expectedImageHeight);
+        }
+
+        [Test]
+        public void The_image_property_items_are_retained()
+        {
+            using (var memoryStream = new MemoryStream(ImageBytes300x200))
+            {
+                var image = Image.FromStream(memoryStream);
+
+                var imageToResize = Resizer.CreateImageFrom(ImageBytes200x300, ImageFormat.Png);
+                var resizedImage = imageToResize.ResizeTo<Fit>(100, 200).CreateImage();
+
+                foreach (var propertyItem in image.PropertyItems)
+                {
+                    try
+                    {
+                        resizedImage.GetPropertyItem(propertyItem.Id);
+                    }
+                    catch (ArgumentException)
+                    {
+                        Assert.Fail("The property item with ID {0} was not present.", propertyItem.Id);
+                    }
+                }
+            }
         }
     }
 

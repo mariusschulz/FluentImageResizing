@@ -18,6 +18,8 @@ namespace FluentImageResizing
                 graphics.DrawImage(image, 0, 0, targetWidth, targetHeight);
             }
 
+            ImagePropertyItems.Copy(image, resizedImage);
+
             return resizedImage;
         }
 
